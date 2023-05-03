@@ -19,7 +19,6 @@ const Home = () => {
     setSearch(search);
   }
   useEffect(() => {
-    console.log('search -->>', search);
     let query = "";
     if (filterValues.length) {
       query = filterValues
@@ -31,7 +30,6 @@ const Home = () => {
         `http://localhost:3000/api/items${query ? `?${query}&search=${search}` : `?search=${search}`}`
       );
       const results = await resultsResponse.json();
-      console.log("request", results);
       setItems(results);
     })();
   }, [filterValues, search]);
