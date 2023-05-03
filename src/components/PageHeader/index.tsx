@@ -26,7 +26,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ numberOfItems = 0 }) => {
     <div className={cx(styles.Page__header, "")}>
       <div className="flex flex-col">
         <h2 className="py-1">Item search</h2>
-        <span>{numberOfItems} items</span>
+        <span>{slideIn.items.length} items</span>
       </div>
       <div className="flex">
         <div className="px-2">

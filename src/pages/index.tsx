@@ -2,10 +2,11 @@ import { SlideInContext } from "@/components/RightSlideIn/context";
 import { useEffect, useState } from "react";
 
 import { Layout } from "../components/Layout";
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+console.log("base url", baseUrl);
 const Home = () => {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filterValues, setFilterValues] = useState<
     { name: string; value: string }[]
   >([]);
@@ -17,7 +18,7 @@ const Home = () => {
   };
   const handleSearchValues = (search: string) => {
     setSearch(search);
-  }
+  };
   useEffect(() => {
     let query = "";
     if (filterValues.length) {
@@ -27,7 +28,9 @@ const Home = () => {
     }
     (async () => {
       const resultsResponse = await fetch(
-        `http://localhost:3000/api/items${query ? `?${query}&search=${search}` : `?search=${search}`}`
+        `${baseUrl}/api/items${
+          query ? `?${query}&search=${search}` : `?search=${search}`
+        }`
       );
       const results = await resultsResponse.json();
       setItems(results);
@@ -35,26 +38,29 @@ const Home = () => {
   }, [filterValues, search]);
 
   return (
-    <SlideInContext.Provider value={{ handleFilterValues, handleSearchValues }}>
+    <SlideInContext.Provider value={{ handleFilterValues, handleSearchValues, items }}>
       <Layout>
         {items.length ? (
           <table>
-            <tr>
-              <th>Category</th>
-              <th>Item</th>
-              <th>Order</th>
-              <th>type</th>
-            </tr>
-            (
-            {items.map((_item: any, index) => (
-              <tr key={index}>
-                <td>{_item.category}</td>
-                <td>{_item.item}</td>
-                <td>{_item.order}</td>
-                <td>{_item.type}</td>
+            <thead>
+              <tr className="font-bold py-2">
+                <td>Category</td>
+                <td>Item</td>
+                <td>Order</td>
+                <td>type</td>
               </tr>
-            ))}
-            )
+            </thead>
+
+            <tbody>
+              {items.map((_item: any, index) => (
+                <tr key={index}>
+                  <td>{_item.category}</td>
+                  <td>{_item.item}</td>
+                  <td>{_item.order}</td>
+                  <td>{_item.type}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         ) : null}
       </Layout>
