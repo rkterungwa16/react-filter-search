@@ -1,4 +1,5 @@
 import { useState, FC } from "react";
+import { FunnelIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 
 import styles from "./styles.module.css";
@@ -22,8 +23,12 @@ export const PageHeader: FC<PageHeaderProps> = ({ numberOfItems = 0 }) => {
         <span>{numberOfItems} items</span>
       </div>
       <div className="flex">
-        <div className="px-2">Item search</div>
-        <button onClick={handleClick}>filter</button>
+        <div className="px-2">
+          <input className="rounded-sm" type='text' />
+        </div>
+        <button onClick={handleClick}>
+          <FunnelIcon style={{ width: "1.5rem", height: "1.5rem" }} />
+        </button>
       </div>
       <SlideOvers
         isOpen={sidebarIsOpen}

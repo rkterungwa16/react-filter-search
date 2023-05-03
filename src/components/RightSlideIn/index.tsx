@@ -23,7 +23,6 @@ export const SlideOvers: FC<SlideOversProps> = ({
   contentBody,
   contentHeader,
   isOpen = false,
-  showButtons = true,
   handleCancelClick,
 }) => {
   return (
@@ -51,7 +50,6 @@ export const SlideOvers: FC<SlideOversProps> = ({
               </>
             )}
             <SlideOverContentBody handleCancelClick={handleCancelClick}>
-              {/* {contentBody && cloneElement(contentBody, { handleCancelClick })} */}
             </SlideOverContentBody>
           </div>
         </RightSlideInTransition>
