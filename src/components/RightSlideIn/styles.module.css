@@ -51,4 +51,11 @@
 .SlideOverContentHeaderTitle__wrapper {
   @apply flex items-center;
 }
+.textarea {
+  @apply block w-full sm:text-sm rounded-md p-2;
+  border: 1px solid;
+}
 
+.SlideOverContentHeader__subtitle {
+  @apply text-xs text-gray-500;
+}

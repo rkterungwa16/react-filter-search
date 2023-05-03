@@ -7,21 +7,23 @@ interface SlideOverContentHeaderProps {
   title?: string;
   subtitle?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
+  handleReset?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const SlideOverContentHeader: FC<SlideOverContentHeaderProps> = ({
   title,
   subtitle,
   handleClick,
+  handleReset
 }) => (
   <div className={styles.SlideOverContentHeader__container}>
     <div className={styles.SlideOverContentHeader__wrapper}>
       <h2 className={styles.SlideOverContentHeader__title}>{title}</h2>
       <div className={styles.SlideOverContentHeaderTitle__wrapper}>
-        <button>
+        <button data-testid="reset-btn-data" onClick={handleReset}>
           <span className={styles.SlideOverReset__button}>Reset all</span>
         </button>
-        <button className={styles.SlideOverClose__button} onClick={handleClick}>
+        <button data-testid="cancel-btn-data" className={styles.SlideOverClose__button} onClick={handleClick}>
           <XMarkIcon style={{ width: "1.5rem", height: "1.5rem" }} />
         </button>
       </div>

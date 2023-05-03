@@ -3,7 +3,7 @@ import { FunnelIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 
 import styles from "./styles.module.css";
-import SlideOvers from "../RightSlideIn";
+import SlideIn from "../RightSlideIn";
 
 export type PageHeaderProps = {
   numberOfItems?: number;
@@ -30,7 +30,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ numberOfItems = 0 }) => {
           <FunnelIcon style={{ width: "1.5rem", height: "1.5rem" }} />
         </button>
       </div>
-      <SlideOvers
+      <SlideIn
         isOpen={sidebarIsOpen}
         handleCancelClick={handleCancelClick}
       />

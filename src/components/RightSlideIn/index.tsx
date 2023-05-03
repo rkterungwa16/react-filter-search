@@ -1,30 +1,62 @@
 import classNames from "classnames";
-import { cloneElement, FC, ReactElement } from "react";
+import { ChangeEventHandler, FC, useState, useContext } from "react";
 
 import { RightSlideInTransition } from "../RightSlideInTransition";
 import { SlideOverContentHeader } from "./header";
 import { SlideOverContentBody } from "./body";
 
 import styles from "./styles.module.css";
+import { SlideInContext } from "./context";
 
-interface SlideOversProps {
-  title?: string;
-  subtitle?: string;
-  contentBody?: ReactElement;
-  contentHeader?: ReactElement;
+interface SlideInProps {
   isOpen?: boolean;
-  showButtons?: boolean;
   handleCancelClick?: () => void;
 }
 
-export const SlideOvers: FC<SlideOversProps> = ({
-  title = "Set Parameters",
-  subtitle = "9 parameters available",
-  contentBody,
-  contentHeader,
+export const SlideIn: FC<SlideInProps> = ({
   isOpen = false,
   handleCancelClick,
 }) => {
+  const slideIn = useContext(SlideInContext);
+  const [filterValues, setFilterValues] = useState<
+    { name: string; value: string }[]
+  >([]);
+  const handleResetFilterValues = () => {
+    setFilterValues([]);
+  };
+  const handleFilterValuesChange = (
+    filter: string
+  ): ChangeEventHandler<HTMLTextAreaElement> => {
+    return (e) => {
+      const value = e.currentTarget.value as string;
+      const exists = filterValues.find((_value) => _value.name === filter);
+      if (exists) {
+        const currentFilterValue = filterValues.map((_value) => {
+          if (_value.name === filter) {
+            return {
+              ..._value,
+              value,
+            };
+          }
+          return _value;
+        });
+        setFilterValues(currentFilterValue);
+        slideIn?.handleFilterValues(currentFilterValue);
+      }
+      if (!exists) {
+        const currentFilterValue = [
+          ...filterValues,
+          {
+            name: filter,
+            value,
+          },
+        ];
+        setFilterValues(currentFilterValue);
+        slideIn.handleFilterValues(currentFilterValue);
+      }
+    };
+  };
+
   return (
     <div
       className={classNames(styles.SlideOver__container, {
@@ -35,21 +67,45 @@ export const SlideOvers: FC<SlideOversProps> = ({
       role="dialog"
       aria-modal="true"
     >
-      <div className={styles.SlideOver__wrapper} aria-hidden={`${isOpen}`}>
+      <div className={styles.SlideOver__wrapper} aria-hidden={isOpen}>
         <RightSlideInTransition in={isOpen}>
           <div className={styles.SlideOverContent__wrapper}>
-            {contentHeader ? (
-              cloneElement(contentHeader, { handleCancelClick })
-            ) : (
-              <>
-                <SlideOverContentHeader
-                  title={title}
-                  subtitle={subtitle}
-                  handleClick={handleCancelClick}
+            <SlideOverContentHeader
+              title="Set Parameters"
+              subtitle={`${filterValues.length} parameters available`}
+              handleClick={handleCancelClick}
+              handleReset={handleResetFilterValues}
+            />
+
+            <SlideOverContentBody>
+              <div className="flex flex-col px-3 py-2">
+                <div className="flex">
+                  <h4 className="text-base font-semibold py-3">Item</h4>
+                </div>
+                <textarea
+                  className={styles.textarea}
+                  rows={5}
+                  onChange={handleFilterValuesChange("item")}
+                  value={
+                    filterValues.find((_value) => _value.name === "item")
+                      ?.value || ""
+                  }
                 />
-              </>
-            )}
-            <SlideOverContentBody handleCancelClick={handleCancelClick}>
+              </div>
+              <div className="flex flex-col px-3 py-2">
+                <div className="flex">
+                  <h4 className="text-base font-semibold py-3">Order</h4>
+                </div>
+                <textarea
+                  className={styles.textarea}
+                  rows={5}
+                  onChange={handleFilterValuesChange("order")}
+                  value={
+                    filterValues.find((_value) => _value.name === "order")
+                      ?.value || ""
+                  }
+                />
+              </div>
             </SlideOverContentBody>
           </div>
         </RightSlideInTransition>
@@ -58,4 +114,4 @@ export const SlideOvers: FC<SlideOversProps> = ({
   );
 };
 
-export default SlideOvers;
+export default SlideIn;
