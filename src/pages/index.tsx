@@ -1,4 +1,4 @@
-import queryString from 'query-string';
+
 import { SlideInContext } from "@/components/RightSlideIn/context";
 import { useEffect, useState } from "react";
 
@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <SlideInContext.Provider value={{ handleFilterValues }}>
       <Layout>
-        child
+        
       </Layout>
     </SlideInContext.Provider>
   );
