@@ -16,14 +16,14 @@ const transitionStyles = {
   exited: { maxWidth: "28rem", width: "24rem", transform: "translateX(28rem)" },
 } as { [x: string]: any };
 
-interface RightSlideInProps extends HTMLAttributes<HTMLDivElement> {
+interface RightSlideInTransitionProps extends HTMLAttributes<HTMLDivElement> {
   in?: boolean;
   duration?: number;
   delay?: string;
   children?: ReactNode;
 }
 
-export const RightSlideIn: FC<RightSlideInProps> = ({
+export const RightSlideInTransition: FC<RightSlideInTransitionProps> = ({
   in: asIn,
   duration = 100,
   children,

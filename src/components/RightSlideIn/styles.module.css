@@ -1,0 +1,54 @@
+
+.SlideOver__container {
+  @apply fixed inset-0 overflow-hidden;
+}
+
+.SlideOverBackground__on {
+  @apply visible;
+  z-index: 999999999;
+  background: #00000099;
+  transition: all .8s;
+}
+.SlideOverBackground__off {
+  @apply invisible z-50;
+  background: transparent;
+  transition: all .8s;
+}
+.SlideOver__wrapper {
+  @apply fixed inset-y-0 right-0 pl-10 max-w-full flex;
+}
+
+.SlideOverContent__container {
+  @apply max-w-md;
+}
+
+.SlideOverWidth__full {
+  @apply w-screen;
+}
+
+.SlideOverWidth__hidden {
+  @apply max-w-0;
+}
+
+.SlideOverContent__wrapper {
+  @apply h-full flex flex-col bg-white shadow-xl overflow-y-scroll;
+}
+
+.SlideOverContentHeader__container {
+  @apply py-6 px-4 sm:px-6;
+  background: #F5F7F8;
+}
+
+.SlideOverContentHeader__wrapper {
+  @apply flex items-center justify-between;
+}
+
+.SlideOverReset__button {
+  @apply px-2 text-xs font-semibold;
+  color: #0C67A0;
+}
+
+.SlideOverContentHeaderTitle__wrapper {
+  @apply flex items-center;
+}
+

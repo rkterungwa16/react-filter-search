@@ -1,0 +1,4 @@
+.Page__header {
+  @apply flex justify-between items-center;
+  padding: 2.5rem 6.5rem;
+}
