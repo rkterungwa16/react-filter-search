@@ -5,6 +5,7 @@ import { Layout } from "../components/Layout";
 
 const Home = () => {
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState('');
   const [filterValues, setFilterValues] = useState<
     { name: string; value: string }[]
   >([]);
@@ -14,7 +15,11 @@ const Home = () => {
   ) => {
     setFilterValues(filterValues);
   };
+  const handleSearchValues = (search: string) => {
+    setSearch(search);
+  }
   useEffect(() => {
+    console.log('search -->>', search);
     let query = "";
     if (filterValues.length) {
       query = filterValues
@@ -23,16 +28,16 @@ const Home = () => {
     }
     (async () => {
       const resultsResponse = await fetch(
-        `http://localhost:3000/api/items${query ? `?${query}` : ""}`
+        `http://localhost:3000/api/items${query ? `?${query}&search=${search}` : `?search=${search}`}`
       );
       const results = await resultsResponse.json();
       console.log("request", results);
       setItems(results);
     })();
-  }, [filterValues]);
+  }, [filterValues, search]);
 
   return (
-    <SlideInContext.Provider value={{ handleFilterValues }}>
+    <SlideInContext.Provider value={{ handleFilterValues, handleSearchValues }}>
       <Layout>
         {items.length ? (
           <table>

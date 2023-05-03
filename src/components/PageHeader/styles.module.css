@@ -2,3 +2,8 @@
   @apply flex justify-between items-center;
   padding: 2.5rem 6.5rem;
 }
+
+.Search__input {
+  @apply block w-full sm:text-sm rounded-md p-1;
+  border: 1px solid;
+}
