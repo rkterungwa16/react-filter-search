@@ -28,7 +28,7 @@ const Home = () => {
     }
     (async () => {
       const resultsResponse = await fetch(
-        `${baseUrl}/api/items${
+        `/api/items${
           query ? `?${query}&search=${search}` : `?search=${search}`
         }`
       );
