@@ -39,20 +39,22 @@ export const SlideIn: FC<SlideInProps> = ({
             };
           }
           return _value;
-        });
+        }).filter((_filter) => _filter.value);
         setFilterValues(currentFilterValue);
         slideIn?.handleFilterValues(currentFilterValue);
       }
       if (!exists) {
-        const currentFilterValue = [
-          ...filterValues,
-          {
-            name: filter,
-            value,
-          },
-        ];
-        setFilterValues(currentFilterValue);
-        slideIn.handleFilterValues(currentFilterValue);
+        if (value) {
+          const currentFilterValue = [
+            ...filterValues,
+            {
+              name: filter,
+              value,
+            },
+          ];
+          setFilterValues(currentFilterValue);
+          slideIn.handleFilterValues(currentFilterValue);
+        }
       }
     };
   };
@@ -102,6 +104,20 @@ export const SlideIn: FC<SlideInProps> = ({
                   onChange={handleFilterValuesChange("order")}
                   value={
                     filterValues.find((_value) => _value.name === "order")
+                      ?.value || ""
+                  }
+                />
+              </div>
+              <div className="flex flex-col px-3 py-2">
+                <div className="flex">
+                  <h4 className="text-base font-semibold py-3">Type</h4>
+                </div>
+                <textarea
+                  className={styles.textarea}
+                  rows={5}
+                  onChange={handleFilterValuesChange("type")}
+                  value={
+                    filterValues.find((_value) => _value.name === "type")
                       ?.value || ""
                   }
                 />
